@@ -25,7 +25,7 @@ public class Result<T> {
         return new Result<>(APIResponseConstants.CODE_SUCCESS, APIResponseConstants.MESSAGE_SUCCESS, null);
     }
 
-    public static Result<Void> error(String message) {
+    public static <T> Result<T> error(String message) {
         return new Result<>(APIResponseConstants.CODE_FAILURE, message, null);
     }
 }
