@@ -14,7 +14,7 @@ public final class UrlConstants {
 
 //    不被登录蓝机器拦截的URL list
     public static final List<String> EXCLUDE_FROM_LOGIN_INTERCEPTOR =
-            Collections.unmodifiableList(Arrays.asList(LOGIN_URL,USER_URL));
+            Collections.unmodifiableList(Arrays.asList(LOGIN_URL,REGISTER_URL));
 
 
 }
