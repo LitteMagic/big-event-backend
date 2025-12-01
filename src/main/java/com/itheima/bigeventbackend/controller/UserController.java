@@ -1,13 +1,13 @@
 package com.itheima.bigeventbackend.controller;
 
-import ch.qos.logback.core.util.MD5Util;
 import com.itheima.bigeventbackend.constant.APIResponseConstants;
+import com.itheima.bigeventbackend.pojo.LoginUser;
 import com.itheima.bigeventbackend.pojo.Result;
 import com.itheima.bigeventbackend.pojo.User;
 import com.itheima.bigeventbackend.service.UserService;
-import com.itheima.bigeventbackend.service.impl.UserServiceImpl;
 import com.itheima.bigeventbackend.utils.JwtUtil;
 import com.itheima.bigeventbackend.utils.Md5Util;
+import com.itheima.bigeventbackend.utils.UserContextUtil;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -73,5 +73,21 @@ public class UserController {
         claims.put("username",username);
         String JWTToken = JwtUtil.genToken(claims);
         return Result.success(JWTToken);
+    }
+
+    /**
+     * 获取用户信息（根据ThreadLocal中的用户名）
+     * @return 用户信息
+     */
+    @RequestMapping("/userInfo")
+    public Result<User> userInfo(){
+        LoginUser loginUser = UserContextUtil.get();
+        String loginUsername = loginUser.getUsername();
+        User user = userService.findByName(loginUsername);
+        if (user == null){
+            return Result.error(APIResponseConstants.MESSAGE_ERROR_USER_LOGIN_USER_DOES_NOT_EXISTS);
+        }else {
+            return Result.success(user);
+        }
     }
 }
