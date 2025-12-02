@@ -43,4 +43,23 @@ public class UserServiceImpl implements UserService {
 //        3.向数据库插入数据
         userMapper.add(user);
     }
+
+    @Override
+    public void update(User user) {
+//        更新数据库中数据的更新时间
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.update(user);
+    }
+
+    @Override
+    public void updateAvatar(User user) {
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.updateAvatar(user);
+    }
+
+    @Override
+    public void updatePwd(User user) {
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.updatePwd(user);
+    }
 }

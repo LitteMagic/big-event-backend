@@ -16,4 +16,22 @@ public interface UserService {
      * @param password 密码
      */
     void register(String username, String password);
+
+    /**
+     * 更新用户信息
+     * @param user 用户信息
+     */
+    void update(User user);
+
+    /**
+     * 更新用户头像
+     * @param user 简易封装的用户，包含用户ID和用户头像URL地址
+     */
+    void updateAvatar(User user);
+
+    /**
+     * 更新用户密码
+     * @param currentuser 封装的用户信息
+     */
+    void updatePwd(User currentuser);
 }

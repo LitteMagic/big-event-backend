@@ -15,9 +15,11 @@ import java.util.Map;
 public class LoginUser {
 
     private String username;
+    private Integer id;
 
     public  LoginUser(Map<String, Object> claims)
     {
         this.username = (String) claims.get("username");
+        this.id = (Integer) claims.get("id");
     }
 }
