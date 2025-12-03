@@ -147,4 +147,5 @@ public class UserController {
         userService.updatePwd(currentuser);
         return Result.success();
     }
+
 }

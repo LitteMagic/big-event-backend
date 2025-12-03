@@ -51,4 +51,5 @@ public interface UserMapper {
             "set password = ${password} " +
             "where id = #{id}")
     void updatePwd(User user);
+    
 }
