@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据username在User表中查找数据
+     *
      * @param username 用户名
      * @return 查找到的用户信息
      */
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 注册用户
+     *
      * @param username 用户名
      * @param password 密码
      */
@@ -52,7 +54,7 @@ public class UserServiceImpl implements UserService {
     public void updateInfo(UserUpdateUserInfoDTO userDTO) {
 //        1.根据UserDTO来生成User
         User user = new User();
-        BeanUtils.copyProperties(userDTO,user); //source在前，target在后 userDTO -> user
+        BeanUtils.copyProperties(userDTO, user); //source在前，target在后 userDTO -> user
 //        更新数据库中数据的更新时间
         user.setUpdateTime(LocalDateTime.now());
         userMapper.update(user);
@@ -60,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateAvatar(Integer id, String url) {
-        User user = new  User();
+        User user = new User();
         user.setId(id);
         user.setUserPic(url);
         user.setUpdateTime(LocalDateTime.now());
@@ -70,23 +72,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePwd(Integer id, String oldPwd, String newPwd, String rePwd) {
 //        1.检验参数
-//        非空检验
-        if (StringUtils.isEmpty(oldPwd)
-                || StringUtils.isEmpty(newPwd)
-                || StringUtils.isEmpty(rePwd)){
-            throw new IllegalArgumentException("原密码、新密码和确认密码，三者中有空值");
-        }
 //        两次密码是否一致
-        if (!newPwd.equals(rePwd)){
+        if (!newPwd.equals(rePwd)) {
             throw new IllegalArgumentException("新密码与确认密码，两者值不同");
         }
 //        检查原密码是否正确
         User user = userMapper.findById(id);
-        if (user == null){
+        if (user == null) {
             throw new UserNotFoundException("找不到目标用户，用户不存在");
         }
 
-        if (!user.getPassword().equals(Md5Util.getMD5String(oldPwd))){
+        if (!user.getPassword().equals(Md5Util.getMD5String(oldPwd))) {
             throw new IllegalArgumentException("原密码输入错误");
         }
 //        封装用户对象

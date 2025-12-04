@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface ArticleMapper {
 
-    @Update("")
+    @Insert("")
     public void add(Article article);
 }
