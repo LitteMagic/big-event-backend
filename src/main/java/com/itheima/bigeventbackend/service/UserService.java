@@ -1,6 +1,8 @@
 package com.itheima.bigeventbackend.service;
 
+import com.itheima.bigeventbackend.DTO.request.UserUpdateUserInfoDTO;
 import com.itheima.bigeventbackend.pojo.User;
+import org.apache.ibatis.javassist.NotFoundException;
 
 public interface UserService {
     /**
@@ -19,19 +21,24 @@ public interface UserService {
 
     /**
      * 更新用户信息
-     * @param user 用户信息
+     * @param userDTO 用户信息
      */
-    void update(User user);
+    void updateInfo(UserUpdateUserInfoDTO userDTO);
 
     /**
      * 更新用户头像
-     * @param user 简易封装的用户，包含用户ID和用户头像URL地址
+     *
+     * @param id 用户Id
+     * @param url 用户头像URL地址
      */
-    void updateAvatar(User user);
+    void updateAvatar(Integer id,String url);
 
     /**
      * 更新用户密码
-     * @param currentuser 封装的用户信息
+     * @param id 用户ID
+     * @param oldPwd 用户原密码
+     * @param newPwd 用户新密码
+     * @param rePwd 用户新密码再次确认
      */
-    void updatePwd(User currentuser);
+    void updatePwd(Integer id,String oldPwd,String newPwd,String rePwd);
 }

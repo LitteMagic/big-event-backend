@@ -1,7 +1,7 @@
 package com.itheima.bigeventbackend.controller;
 
 import com.itheima.bigeventbackend.pojo.Article;
-import com.itheima.bigeventbackend.pojo.Result;
+import com.itheima.bigeventbackend.DTO.response.Result;
 import com.itheima.bigeventbackend.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

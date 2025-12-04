@@ -2,9 +2,12 @@ package com.itheima.bigeventbackend.mapper;
 
 import com.itheima.bigeventbackend.pojo.Article;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
-public class ArticleMapper {
+@Mapper
+public interface ArticleMapper {
 
-    public void add(Article article) {
-    }
+    @Update("")
+    public void add(Article article);
 }

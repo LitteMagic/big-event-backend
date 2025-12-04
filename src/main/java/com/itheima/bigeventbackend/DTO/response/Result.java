@@ -1,4 +1,4 @@
-package com.itheima.bigeventbackend.pojo;
+package com.itheima.bigeventbackend.DTO.response;
 
 
 import com.itheima.bigeventbackend.constant.APIResponseConstants;

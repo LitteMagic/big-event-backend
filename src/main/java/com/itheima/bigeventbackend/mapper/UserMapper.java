@@ -18,6 +18,14 @@ public interface UserMapper {
     User findByName(String username);
 
     /**
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from user where id = #{id}")
+    User findById(Integer id);
+
+    /**
      * 在user表中添加数据
      * @param user 添加的user数据
      */
@@ -29,27 +37,7 @@ public interface UserMapper {
      * 在 user 中更新用户的基本信息
      * @param user 封装的用心信息
      */
-    @Update("update user " +
-            "set nickname = #{nickname},email=#{email},update_time=#{updateTime} " +
-            "where id = #{id}")
     void update(User user);
 
-    /**
-     * 更新 user 中的user_pic字段，根据Id查询
-     * @param user 封装的user信息
-     */
-    @Update("update user " +
-            "set user_pic = #{userPic},update_time=#{updateTime} " +
-            "where id = #{id}")
-    void updateAvatar(User user);
 
-    /**
-     * 更新user表中的密码password字段
-     * @param user 封装的user信息
-     */
-    @Update("update user " +
-            "set password = ${password} " +
-            "where id = #{id}")
-    void updatePwd(User user);
-    
 }

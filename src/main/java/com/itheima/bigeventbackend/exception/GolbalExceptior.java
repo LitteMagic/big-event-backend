@@ -1,8 +1,7 @@
 package com.itheima.bigeventbackend.exception;
 
-import ch.qos.logback.core.util.StringUtil;
 import com.itheima.bigeventbackend.constant.APIResponseConstants;
-import com.itheima.bigeventbackend.pojo.Result;
+import com.itheima.bigeventbackend.DTO.response.Result;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
