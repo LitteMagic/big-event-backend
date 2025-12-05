@@ -23,4 +23,14 @@
         </trim>
     </insert>
 
+    <update id="update" parameterType="com.itheima.bigeventbackend.pojo.Category">
+        update category set
+        <set>
+            <if test="categoryName != null"> category_name = #{categoryName} ,</if>
+            <if test="categoryAlias != null">category_alias = #{categoryAlias} ,</if>
+            <if test="updateTime != null">update_time = #{updateTime} ,</if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>
