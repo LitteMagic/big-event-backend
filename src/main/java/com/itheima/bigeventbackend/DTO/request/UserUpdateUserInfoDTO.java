@@ -10,6 +10,9 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 
+/**
+ * 用户更新用户信息DTO
+ */
 @Data
 public class UserUpdateUserInfoDTO {
 

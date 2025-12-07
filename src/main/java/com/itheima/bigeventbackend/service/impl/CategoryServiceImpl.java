@@ -4,8 +4,6 @@ import com.itheima.bigeventbackend.DTO.request.CategoryAddDTO;
 import com.itheima.bigeventbackend.DTO.request.CategoryUpdateInfoDTO;
 import com.itheima.bigeventbackend.DTO.response.CategoryDetailVO;
 import com.itheima.bigeventbackend.exception.CategoryAlreadyExistException;
-import com.itheima.bigeventbackend.exception.UserNotFoundException;
-import com.itheima.bigeventbackend.exception.UserNotLoginException;
 import com.itheima.bigeventbackend.mapper.CategoryMapper;
 import com.itheima.bigeventbackend.pojo.Category;
 import com.itheima.bigeventbackend.service.CategoryService;
@@ -26,12 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void add(CategoryAddDTO categoryAddDTO) {
 //        1.数据检测，如果数据库中有重名数据，那么就不进行插入
-        Category categoryInDB =
-                categoryMapper.findByNameAndAlias(categoryAddDTO.getCategoryName()
-                        , categoryAddDTO.getCategoryAlias());
-        if (categoryInDB != null) {
-            throw new CategoryAlreadyExistException("文章分类已存在");
-        }
+        checkNameAndAliasDuplicate(categoryAddDTO.getCategoryName(),
+                categoryAddDTO.getCategoryAlias());
 //        2.将DTO中的数据 赋值到category中
         Category category = new Category();
         BeanUtils.copyProperties(categoryAddDTO, category);
@@ -42,7 +36,6 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUpdateTime(LocalDateTime.now());
 
         categoryMapper.insert(category);
-
     }
 
     @Override
@@ -52,17 +45,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void update(CategoryUpdateInfoDTO categoryUpdateInfoDTO) {
-//        1.检验当前用户是否登录
-        Integer currentUserId = UserContextUtil.get().getId();
-        if (currentUserId == null) {
-            throw new UserNotLoginException("当前用户未登录，或者登录时效过期");
-        }
+//        1.数据检测，如果数据库中有重名数据，那么就不进行插入
+        checkNameAndAliasDuplicate(categoryUpdateInfoDTO.getCategoryName(),
+                categoryUpdateInfoDTO.getCategoryAlias());
 //        2.封装信息，进行更新
         Category category = new Category();
         BeanUtils.copyProperties(categoryUpdateInfoDTO, category);
         category.setUpdateTime(LocalDateTime.now());
         categoryMapper.update(category);
-
     }
 
     @Override
@@ -78,5 +68,20 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(Integer id) {
         categoryMapper.delete(id);
+    }
+
+
+    /**
+     * 检查分类名称和别名是否冲突
+     *
+     * @param categoryName  分类名称
+     * @param categoryAlias 分类别名
+     */
+    private void checkNameAndAliasDuplicate(String categoryName, String categoryAlias) {
+        Category categoryInDB =
+                categoryMapper.findByNameAndAlias(categoryName, categoryAlias);
+        if (categoryInDB != null) {
+            throw new CategoryAlreadyExistException("文章分类已存在");
+        }
     }
 }

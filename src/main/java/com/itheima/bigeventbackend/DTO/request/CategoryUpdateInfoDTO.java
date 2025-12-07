@@ -1,11 +1,15 @@
 package com.itheima.bigeventbackend.DTO.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * 更新文章分类 DTO
+ */
 @Data
 public class CategoryUpdateInfoDTO {
-    @NotBlank(message = "文章分类id 不可为空")
+    @NotNull(message = "文章分类id 不可为空")
     private Integer id;
 
     @NotBlank(message = "文章分类名称不可为空")
