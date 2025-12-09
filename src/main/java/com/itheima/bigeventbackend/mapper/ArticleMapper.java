@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface ArticleMapper {
 
-    @Insert("")
-    public void add(Article article);
+    /**
+     * 新增文章
+     * @param article 文章数据
+     */
+    public void insert(Article article);
 }
